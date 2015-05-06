@@ -1,5 +1,7 @@
 class StatusesController < ApplicationController
   before_action :set_status, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
+  
 
   # GET /statuses
   # GET /statuses.json
@@ -25,7 +27,6 @@ class StatusesController < ApplicationController
   # POST /statuses.json
   def create
     @status = Status.new(status_params)
-
     respond_to do |format|
       if @status.save
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
@@ -64,11 +65,11 @@ class StatusesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_status
-      @status = Status.find(params[:id])
-    end
+       @status = Status.find(params[:id])
+      end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:name, :context)
+      params.require(:status).permit(:name, :context, :user_id)
     end
 end
