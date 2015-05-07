@@ -6,9 +6,18 @@ get '/login'
 assert_response :success
     end
     
-    test "that /login route opens the login page" do
+    test "that /logout route opens the log out page" do
       get '/logout'
       assert_response :redirect
       assert_redirected_to '/'
+    end
+    
+    test "that /register route opens the sign up page" do
+     get '/register'
+     assert_response :success
+     test "that a profile page work" do
+       get '/prem'
+       assert_response :success
+     end
     end
 end
