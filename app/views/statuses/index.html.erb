@@ -7,7 +7,12 @@
 
 <% @statuses.each do |status| %>
 <div class="status">
-	<strong><%= status.user.first_name %></strong>
+	<div class="row">
+		<div class="span1">
+			<%= image_tag status.user.gravatar_url %>
+			</div>
+			<div class="span7">
+			<strong><%= status.user.first_name %></strong>
 	<p><%= status.context %></p>
 	<div class="meta">
 		<%= link_to time_ago_in_words(status.created_at) + " ago", status %>
@@ -17,4 +22,6 @@
 			</span>
 		</div>
 		</div>
+	</div>
+</div>
 		<% end %>

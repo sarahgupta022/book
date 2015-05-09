@@ -1,14 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-
-  context: MyText
-    user: premlata
+  context: my
+    user: sarah
 
 two:
-  context: MyText
-    user: premlata
+  context: my
+    user: sarah
     
-    three:
-      context: i'm sarah
-      user: sarah
+three:
+   context: my
+    user: ruby
