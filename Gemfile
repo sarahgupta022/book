@@ -5,7 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
-gem 'sqlite3'
+
+gem 'rails_12factor', group: :production
 gem 'devise'
 gem 'protected_attributes'
   
