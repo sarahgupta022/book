@@ -1,5 +1,4 @@
-config.secret_key = ENV['3e144a1ed8f69b2bdbf48378b578909fd5ae0cac54c14576d7d0b007ed1edd33073a36e2d8214f5e6b3127c05d8663deb10803fb91d1de3234a4e5a396a29a4c
-'] if Rails.env.production?
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
