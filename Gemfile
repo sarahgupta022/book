@@ -10,8 +10,13 @@ gem 'protected_attributes'
 
 
 gem 'simple_form'
-gem 'pg', group: :production
-gem 'sqlite3'
+group :development do
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
+end
 gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
