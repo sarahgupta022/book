@@ -1,16 +1,13 @@
 sarah:
-  first_name: "sarah"
-  user.last_nmae: "gupta"
-  user.email: "sarahgupta022@gmail.com"
-  user.profile_name: "sub"
-  user.password: "arvind@22"
- user.password_confirmation: "arvind@22"
- 
- ruby:
-  first_name: "ruby"
-  user.last_nmae: "gupta"
-  user.email: "rubs27feb@gmail.com"
-  user.profile_name: "biru"
-  user.password: "rubygupta"
- user.password_confirmation: "rubygupta"
+ first_name: "sarah"
+ last_name: "gupta"
+ email: "sarahgupta022@gmail.com"
+ profile_name: "sarah"
+
+ruby:
+ first_name: "ruby"
+ last_name: "gupta"
+ email: "rubs27feb@gmail.com"
+ profile_name: "biru"
+
  

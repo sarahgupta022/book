@@ -1,13 +1,12 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  context: my
-    user: sarah
-
+  context: MyText
+  user: sarah
+ 
 two:
-  context: my
-    user: sarah
-    
-three:
-   context: my
-    user: ruby
+  context: MyText
+  user: sarah
+  
+  
+ 
+
+  
