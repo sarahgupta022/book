@@ -57,11 +57,38 @@ class StatusesControllerTest < ActionController::TestCase
     get :edit, id: @status
     assert_response :redirect
   end
-
-  test "should update status" do
-    patch :update, id: @status, status: {context: @status.context}
+  
+  test "should redirect edit when not logged in" do
+    get :edit, id: @status
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
   end
-
+  
+  test "should get edit when logged in" do
+    sign_in users(:sarah)
+    get :edit, id: @status
+    assert_response :success
+  end
+  
+  test "should redirect status update when not logged in" do
+    put :update, id: @status, status: {content: @status.context}
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+  
+  test "should update status when logged in" do
+    sign_in users(:sarah)
+    put :update, id: @status, status: {content: @status.context}
+    assert_redirected_to status_path(assigns(:status))
+  end
+  
+  test "should update status for the current user when logged in" do
+    sign_in users(:sarah)
+    put :update, id: @status, status: {content: @status.context, user_id: users(:sarah).id }
+    assert_redirected_to status_path(assigns(:status))
+    assert_equal assigns(:status).user_id, users(:ruby).id
+  end
+  
   test "should destroy status" do
     assert_difference('Status.count', -1) do
       delete :destroy, id: @status

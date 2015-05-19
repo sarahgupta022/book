@@ -8,20 +8,35 @@ class StatusesController < ApplicationController
   # GET /statuses.json
   def index
     @statuses = Status.all
+    
+    respond_to do |format|
+      format.html #index.html.erb
+      format.json { render json: @statuses }
+    end
   end
 
   # GET /statuses/1
   # GET /statuses/1.json
   def show
+    @status = Status.find(params[:id])
+    
+    respond_to do |format|
+      format.html #index.html.erb
+      format.json { render json: @status }
   end
-
+end
   # GET /statuses/new
   def new
     @status = Status.new
+    
+    respond_to do |format|
+      format.html #index.html.erb
+      format.json { render json: @status }
   end
-
+ end
   # GET /statuses/1/edit
   def edit
+    @status = Status.find(params[:id])
   end
 
   # POST /statuses
@@ -42,12 +57,16 @@ class StatusesController < ApplicationController
   # PATCH/PUT /statuses/1
   # PATCH/PUT /statuses/1.json
   def update
+    @status = current_user.statuses.find(params[:id])
+    if params[:status] && params[:status].has_key?(:user_id)
+      params[:status].delete(:user_id) 
+    end
     respond_to do |format|
-      if @status.update(status_params)
+      if @status.update_attributes(params[:status])
         format.html { redirect_to @status, notice: 'Status was successfully updated.' }
-        format.json { render :show, status: :ok, location: @status }
+        format.json { head :no_context }
       else
-        format.html { render :edit }
+        format.html { render action: "edit" }
         format.json { render json: @status.errors, status: :unprocessable_entity }
       end
     end
