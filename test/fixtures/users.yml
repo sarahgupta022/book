@@ -8,6 +8,12 @@ ruby:
  first_name: "ruby"
  last_name: "gupta"
  email: "rubs27feb@gmail.com"
- profile_name: "biru"
+ profile_name: "ruby"
+ 
+arvind:
+  first_name: "arvind"
+  last_name: "kumar"
+  email: arvind.krg@gmail.com
+  profile_name: "arvind"
 
  

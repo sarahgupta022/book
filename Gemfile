@@ -10,6 +10,11 @@ gem 'protected_attributes'
 
 
 gem 'simple_form'
+
+group :test do
+  gem 'shoulda'
+end
+
 group :development do
   gem 'sqlite3'
 end

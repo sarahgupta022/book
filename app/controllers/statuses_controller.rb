@@ -46,9 +46,9 @@ end
     respond_to do |format|
       if @status.save
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
-        format.json { render :show, status: :created, location: @status }
+        format.json { render json: @status, status: :create, location: @status }
       else
-        format.html { render :new }
+        format.html { render action: "new" }
         format.json { render json: @status.errors, status: :unprocessable_entity }
       end
     end
