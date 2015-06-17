@@ -8,6 +8,9 @@ Rails.application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
+  
+  # Log error messages when you accidentally call methods on nil.
+  config.whiny_nils = true
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -35,6 +38,18 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
+  
+   # Print deprecation notices to the Rails logger
+  config.active_support.deprecation = :log
+
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
+
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
+  
+  
+  Paperclip.options[:command_path] = 'C:\Program Files (x86)\GnuWin32\bin'
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

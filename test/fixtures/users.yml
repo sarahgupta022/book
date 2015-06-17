@@ -1,19 +1,26 @@
 sarah:
- first_name: "sarah"
- last_name: "gupta"
+ first_name: "Sarah"
+ last_name: "Gupta"
  email: "sarahgupta022@gmail.com"
  profile_name: "sarahgupta"
+ encrypted_password: "$2a$10$olCFUx1M7H5eoetAiiDQqO54Q8t6iF/hPgcwZBZ7VorjHObJOSMRi"
 
 ruby:
- first_name: "ruby"
- last_name: "gupta"
+ first_name: "Ruby"
+ last_name: "Gupta"
  email: "rubs27feb@gmail.com"
  profile_name: "ruby"
  
 arvind:
-  first_name: "arvind"
-  last_name: "kumar"
+  first_name: "Arvind"
+  last_name: "Kumar"
   email: arvind.krg@gmail.com
   profile_name: "arvind"
+  
+blocked_friend:
+  first_name: "Blocked"
+  last_name: "Friend"
+  email: "blocked@teamtreehouse.com"
+  profile_name: "youblockedme"
 
  

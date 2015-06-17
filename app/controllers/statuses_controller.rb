@@ -2,12 +2,15 @@ class StatusesController < ApplicationController
   before_action :set_status, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
   
+rescue_from ActiveModel::MassAssignmentSecurity::Error, with: :render_permission_error
   
-
+  
+  
   # GET /statuses
   # GET /statuses.json
   def index
-    @statuses = Status.all
+    @statuses = Status.order('created_at desc').all
+
     
     respond_to do |format|
       format.html #index.html.erb
@@ -27,16 +30,17 @@ class StatusesController < ApplicationController
 end
   # GET /statuses/new
   def new
-    @status = Status.new
+    @status = current_user.statuses.new
+    @status.build_document
     
     respond_to do |format|
       format.html #index.html.erb
       format.json { render json: @status }
-  end
+    end
  end
   # GET /statuses/1/edit
   def edit
-    @status = Status.find(params[:id])
+    @status = current_user.statuses.find(params[:id])
   end
 
   # POST /statuses
@@ -58,17 +62,25 @@ end
   # PATCH/PUT /statuses/1.json
   def update
     @status = current_user.statuses.find(params[:id])
-    if params[:status] && params[:status].has_key?(:user_id)
-      params[:status].delete(:user_id) 
+    @document = @status.document
+    
+    @status.transaction do
+      @status.update_attributes(params[:status])
+      @document.update_attribute(params[:status][:document]) if @document
+      raise ActiveRecord::Rollback unless @status.valid? && @document.try(:valid?)
     end
+    
     respond_to do |format|
-      if @status.update_attributes(params[:status])
         format.html { redirect_to @status, notice: 'Status was successfully updated.' }
         format.json { head :no_context }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
       end
+    rescue ActiveRecord::Rollback
+      respond_to do |format|
+        format.html do
+        flash.now[:error] = "Update failed"
+         render action: "edit" 
+       end
+        format.json { render json: @status.errors, status: :unprocessable_entity }
     end
   end
 
@@ -78,7 +90,7 @@ end
     @status.destroy
     respond_to do |format|
       format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { head :no_context }
     end
   end
 
@@ -90,6 +102,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:name, :context, :user_id)
+      params.require(:status).permit(:name, :context, :user_id, :attachment, :avatar) 
     end
 end

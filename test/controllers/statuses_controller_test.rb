@@ -10,6 +10,23 @@ class StatusesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:statuses)
   end
+  
+  test "should display user's post when not logged in" do
+    users(:blocked_friend).statuses.create(context: 'Blocked status')
+    users(:ruby).statuses.create(context: 'Non-blocked status')
+    get :index
+    assert_match /Non\-blocked status/, response.body
+    assert_match /Blocked\ status/, response.body
+  end
+  
+  test "should not display blocked user's post when logged in" do
+    sign_in users(:sarah)
+    users(:blocked_friend).statuses.create(context: 'Blocked status')
+    users(:ruby).statuses.create(context: 'Non-blocked status')
+    get :index
+    assert_match /Non\-blocked status/, response.body
+    assert_no_match /Blocked\ status/, response.body
+  end
 
   test "should be redirected when not logged in" do
     get :new
@@ -41,7 +58,7 @@ class StatusesControllerTest < ActionController::TestCase
   test "should create status for the current user when logged in" do
     sign_in users(:sarah)
     assert_difference('Status.count') do
-      post :create, status: {context: @status.context, user_id: users(:ruby).id }
+      post :create, status: {context: @status.context }
     end
 
     assert_redirected_to status_path(assigns(:status))
@@ -84,16 +101,16 @@ class StatusesControllerTest < ActionController::TestCase
   
   test "should update status for the current user when logged in" do
     sign_in users(:sarah)
-    put :update, id: @status, status: {context: @status.context, user_id: users(:sarah).id }
-    assert_redirected_to status_path(assigns(:status))
-    assert_equal assigns(:status).user_id, users(:ruby).id
+    patch :update, id: @status.id, status: {context: @status.context, user_id: users(:ruby).id }
+    assert_response :error
+    assert_equal assigns(:status).user_id, users(:sarah).id
   end
   
    test "should not update the status if nothing has changed" do
     sign_in users(:sarah)
     put :update, id: @status
     assert_redirected_to status_path(assigns(:status))
-    assert_equal assigns(:status).user_id, users(:ruby).id
+    assert_equal assigns(:status).user_id, users(:sarah).id
   end
   
   

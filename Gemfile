@@ -10,13 +10,26 @@ gem 'protected_attributes'
 
 
 gem 'simple_form'
+gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
+gem 'draper', '~> 2.1'
+gem 'js-routes'
+gem 'paperclip'
+
+gem 'twitter-bootstrap-rails'
+
+group :development do
+  gem 'thin'
+end
+
 
 group :test do
   gem 'shoulda'
+  gem 'factory_girl_rails'
 end
 
 group :development do
   gem 'sqlite3'
+  gem 'log_buddy'
 end
 
 group :production do
