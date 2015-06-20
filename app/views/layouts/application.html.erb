@@ -10,9 +10,16 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
-				<a href="#" class="brand">Friendbook</a>
+				<% if user_signed_in? %>
+				<%= link_to "Friendsbook", activities_path, class: 'brand' %>
+				<% else %>
+				<%= link_to "Friendsbook", root_path, class: 'brand' %>
+				<% end %>
 				<ul class="nav">
 					<li><%= link_to "All Statuses", statuses_path %></li>
+					<% if user_signed_in? %>
+					<li id="activity feed"><%= link_to "Activity feed", activities_path %></li>
+					<% end %>
 						</ul>
 						<ul class="nav pull-right">
 							<% if user_signed_in? %>
@@ -29,6 +36,7 @@
 		</div>
 	<div class="container">
 		<%= render_breadcrumbs %>
+		
 	      <% flash.each do |type, message| %>
 	      <div class="alert <%= flash_class type %>">
 			<button class="close" data-dismiss="alert">x</button>
@@ -41,4 +49,15 @@
 
 </div>
 </body>
+
+<script id="activities-template" type="text/x-handlebars-template">
+	<a class="dropdown-toggle" href="#">Activity Feed ({{count}})</a>
+	<ul class="dropdown-menu">
+		{{#each activities}}
+		{{activityLink}}
+		{{/each}}
+		<li class="divider"></li>
+		<li><a href="{{activityFeedLink}}">Activity Feed</a></li>
+		</ul>
+</scrip>
 </html>

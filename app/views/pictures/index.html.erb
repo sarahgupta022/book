@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<%= page_header do%>
+<%= page_header do %>
 <% if signed_in? && current_user == @user %>
 <%= link_to 'Add Picture', new_album_picture_path(current_user, @album), class: 'btn pull-right' %>
 <% end %>
@@ -25,4 +25,4 @@
      		</li>
     <% end %>
 </ul>
-<%= link_to 'New Picture', new_picture_path %>
+

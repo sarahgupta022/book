@@ -1,10 +1,12 @@
 class Document < ActiveRecord::Base
   attr_accessible :attachment, :remove_attachment
-  has_attached_file :attachment
-    do_not_validate_attachment_file_type :attachment                 
-   validates_attachment :attachment,
-    presence: true,
-    context_type: { context_type: %w(image/jpeg image/jpg imag/png image/gif) }
+  has_attached_file :attachment, style: { 
+                          large: "800x800>", medium: "300x200>", small: "260x180>", thumb: "80x80#"
+                          } , :dafault_url => "/system/assets/thumb/missing.png",
+                           :path => ":rails_root/public/system/assets/thumb/missing.png"
+                   
+   validates_attachment_file_name :attachment, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/]
+   validates :attachment, attachment_presence: true
     
   
   attr_accessor :remove_attachment

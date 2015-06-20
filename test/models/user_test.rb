@@ -9,6 +9,7 @@ class UserTest < ActiveSupport::TestCase
   should have_many(:requested_friends)
   should have_many(:blocked_user_friendships)
   should have_many(:blocked_friends)
+  should have_many(:activities)
  
   test "a user should enter a first name" do
     user = User.new
@@ -75,6 +76,28 @@ class UserTest < ActiveSupport::TestCase
       assert !users(:sarah).has_blocked?(users(:ruby))
     end
   end
- 
-   
-end
+  
+     context "#create_activity" do
+      should "increas the Activity count" do
+       assert_difference 'Activity.count' do
+         users(:sarah).create_activity(statuses(:one), 'created' )
+        end
+      end 
+      
+      should "set the targetable instance to the item passed in" do
+        activity = users(:sarah).create_activity(statuses(:one), 'created' )
+        assert_equal statuses(:one), activity.targetable
+      end
+      
+      should "increas the Activity count with an album" do
+       assert_difference 'Activity.count' do
+         users(:sarah).create_activity(album(:vacation), 'created' )
+        end
+      end 
+      
+      should "set the targetable instance to the item passed in with an album" do
+        activity = users(:sarah).create_activity(album(:vacation), 'created' )
+        assert_equal album(:vacation), activity.targetable
+      end
+   end
+ end

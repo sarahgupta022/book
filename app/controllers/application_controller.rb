@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
  
    before_filter :configure_permitted_parameters, if: :devise_controller?
    skip_before_filter :verify_authenticity_token, :only => [:set_status]
+   
+ rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   protected
   def configure_permitted_parameters
@@ -15,6 +17,10 @@ class ApplicationController < ActionController::Base
   private
   def render_permission_error
     render file: 'public/permission_error', status: :error, layout: false
+  end
+  
+  def render_404
+    render file: 'public/404', status: :not_found
   end
  
 

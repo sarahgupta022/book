@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
                                     multiline: true
                                   } 
                                   
-                                      
+    has_many :activities                                 
     has_many :albums
     has_many :pictures
     has_many :statuses
@@ -94,6 +94,10 @@ class User < ActiveRecord::Base
          def to_param
            profile_name
          end
+         
+         def to_s
+           first_name
+         end
              
              def gravatar_url
                stripped_email = email.strip
@@ -105,6 +109,14 @@ class User < ActiveRecord::Base
              
          def has_blocked?(other_user)
            blocked_friends.include?(other_user)
+         end
+         
+         def create_activity(item, action)
+           activity = activities.new
+           activity.targetable = item
+           activity.action = action
+           activity.save
+           activity
          end
     
 end

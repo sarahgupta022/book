@@ -54,6 +54,13 @@ class StatusesControllerTest < ActionController::TestCase
 
     assert_redirected_to status_path(assigns(:status))
   end
+  
+  test "should create an activity item for the status when logged in" do
+    sign_in users(:sarah)
+    assert_difference('Activity.count') do
+      post :create, status: {context: @status.context}
+    end
+  end
 
   test "should create status for the current user when logged in" do
     sign_in users(:sarah)
@@ -99,9 +106,16 @@ class StatusesControllerTest < ActionController::TestCase
     assert_redirected_to status_path(assigns(:status))
   end
   
+  test "should create an activity item when  the status is updated" do
+    sign_in users(:sarah)
+    assert_difference 'Activity.count' do
+    put :update, id: @status, status: {context: @status.context}
+    end
+  end
+  
   test "should update status for the current user when logged in" do
     sign_in users(:sarah)
-    patch :update, id: @status.id, status: {context: @status.context, user_id: users(:ruby).id }
+    put :update, id: @status, status: {context: @status.context, user_id: users(:ruby).id }
     assert_response :error
     assert_equal assigns(:status).user_id, users(:sarah).id
   end
@@ -112,7 +126,6 @@ class StatusesControllerTest < ActionController::TestCase
     assert_redirected_to status_path(assigns(:status))
     assert_equal assigns(:status).user_id, users(:sarah).id
   end
-  
   
   test "should destroy status" do
     assert_difference('Status.count', -1) do

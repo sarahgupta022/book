@@ -5,6 +5,7 @@
 </div>
 <%= link_to "Post a New Status", new_status_path, class: "btn btn-success" %>
 
+
 <% @statuses.each do |status| %>
 <% if can_display_status?(status) %>
      <div class="status media">
@@ -20,10 +21,10 @@
 			| <%= link_to "Edit", edit_status_path(status) %> |
 			<%= link_to "Delete", status, method: :delete, data: { confirm: "Are you sure to delete this status?"} %>
 			</span>
-		
+		<% end %>
 		</div>
 	</div>
 </div>
 <% end %>		
 <% end %>
-<% end %>
+

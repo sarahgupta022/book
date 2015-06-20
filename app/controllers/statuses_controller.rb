@@ -11,8 +11,7 @@ rescue_from ActiveModel::MassAssignmentSecurity::Error, with: :render_permission
   def index
     @statuses = Status.order('created_at desc').all
 
-    
-    respond_to do |format|
+     respond_to do |format|
       format.html #index.html.erb
       format.json { render json: @statuses }
     end
@@ -49,6 +48,7 @@ end
     @status = current_user.statuses.new(params[:status])
     respond_to do |format|
       if @status.save
+        current_user.create_activity(@status, 'created')
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render json: @status, status: :create, location: @status }
       else
@@ -67,7 +67,10 @@ end
     @status.transaction do
       @status.update_attributes(params[:status])
       @document.update_attribute(params[:status][:document]) if @document
-      raise ActiveRecord::Rollback unless @status.valid? && @document.try(:valid?)
+      current_user.create_activity(@status, 'updated')
+      unless @status.valid? || (@status.valid? && @document && !document.valid?)
+      raise ActiveRecord::Rollback
+      end
     end
     
     respond_to do |format|

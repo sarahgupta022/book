@@ -21,9 +21,8 @@ class PicturesController < ApplicationController
   # GET /pictures/1
   # GET /pictures/1.json
   def show
-    @picture = @album.pictures.find(params[:id])
-    add_breadcrumb @picture.caption
-    
+    add_breadcrumb @picture, album_picture_path(@album, @picture)
+        
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @picture }
@@ -32,7 +31,7 @@ class PicturesController < ApplicationController
 
   # GET /pictures/new
   def new
-    @picture = @album.pictures.new(parmas[:id])
+    @picture = @album.pictures.new
     
     respond_to do |format|
       format.html # new.html.erb
@@ -42,7 +41,8 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
-   
+   add_breadcrumb @picture, album_picture_path(@album, @picture)
+   add_breadcrumb "Editing Picture"
   end
 
   # POST /pictures
@@ -53,6 +53,7 @@ class PicturesController < ApplicationController
 
     respond_to do |format|
       if @picture.save
+        current_user.create_activity @picture, 'created'
         format.html { redirect_to album_pictures_path(@album), notice: 'Picture was successfully created.' }
         format.json { render json: @picture, status: :created, location: @picture }
       else
@@ -64,11 +65,10 @@ class PicturesController < ApplicationController
 
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json
-  def update
-    @picture = @album.pictures.find(params[:id])
-    
+  def update    
     respond_to do |format|
       if @picture.update_attributes(params[:picture])
+        current_user.create_activity @picture, 'updated'
         format.html { redirect_to album_pictures_path(@album), notice: 'Picture was successfully updated.' }
         format.json { head :no_context }
       else
@@ -81,10 +81,10 @@ class PicturesController < ApplicationController
   # DELETE /pictures/1
   # DELETE /pictures/1.json
   def destroy
-    @picture = Picture.find(params[:id])
     @picture.destroy
     
     respond_to do |format|
+      current_user.create_activity @picture, 'deleted'
       format.html { redirect_to album_pictures_url(@album), notice: 'Picture was successfully destroyed.' }
       format.json { head :no_context }
     end
@@ -131,8 +131,6 @@ class PicturesController < ApplicationController
   end
   
   def find_picture
-    @picture = @album.pictures.find(params[:picture_id])
+    @picture = @album.pictures.find(params[:id])
   end
-   
-    
 end
