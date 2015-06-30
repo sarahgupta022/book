@@ -1,7 +1,6 @@
 one:
   user: sarah
   friend: ruby
-two: {}
 
 blocked_by_sarah:
   user: sarah

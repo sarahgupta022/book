@@ -6,6 +6,7 @@ class PicturesController < ApplicationController
   before_filter :find_picture, only: [:edit, :update, :show, :destroy]
   before_filter :ensure_proper_user, only: [:edit, :new, :create, :update, :destroy]
   before_filter :add_breadcrumbs
+  
 
   # GET /pictures
   # GET /pictures.json
@@ -65,7 +66,8 @@ class PicturesController < ApplicationController
 
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json
-  def update    
+  def update  
+      
     respond_to do |format|
       if @picture.update_attributes(params[:picture])
         current_user.create_activity @picture, 'updated'
@@ -81,6 +83,7 @@ class PicturesController < ApplicationController
   # DELETE /pictures/1
   # DELETE /pictures/1.json
   def destroy
+    @picture = Picture.find(params[:id])
     @picture.destroy
     
     respond_to do |format|
@@ -115,7 +118,7 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-      params.require(:picture).permit(:album_id, :user_id, :caption, :description)
+      params.require(:picture).permit(:album_id, :user_id, :caption, :description, :asset)
     end
   
   def find_user

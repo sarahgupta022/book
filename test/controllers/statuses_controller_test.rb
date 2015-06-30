@@ -15,8 +15,8 @@ class StatusesControllerTest < ActionController::TestCase
     users(:blocked_friend).statuses.create(context: 'Blocked status')
     users(:ruby).statuses.create(context: 'Non-blocked status')
     get :index
-    assert_match /Non\-blocked status/, response.body
-    assert_match /Blocked\ status/, response.body
+    assert_match(/Non\-blocked status/, response.body)
+    assert_match(/Blocked\ status/, response.body)
   end
   
   test "should not display blocked user's post when logged in" do
@@ -24,8 +24,8 @@ class StatusesControllerTest < ActionController::TestCase
     users(:blocked_friend).statuses.create(context: 'Blocked status')
     users(:ruby).statuses.create(context: 'Non-blocked status')
     get :index
-    assert_match /Non\-blocked status/, response.body
-    assert_no_match /Blocked\ status/, response.body
+    assert_match(/Non\-blocked status/, response.body)
+    assert_no_match(/Blocked\ status/, response.body)
   end
 
   test "should be redirected when not logged in" do
@@ -116,7 +116,7 @@ class StatusesControllerTest < ActionController::TestCase
   test "should update status for the current user when logged in" do
     sign_in users(:sarah)
     put :update, id: @status, status: {context: @status.context, user_id: users(:ruby).id }
-    assert_response :error
+    assert_response :redirect
     assert_equal assigns(:status).user_id, users(:sarah).id
   end
   

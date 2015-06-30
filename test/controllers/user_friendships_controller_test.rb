@@ -11,10 +11,10 @@ class UserFriendshipsControllerTest < ActionController::TestCase
       
       context "when logged in" do
         setup do
-          @friendship1 = create(:pending_user_friendship, user: users(:sarah), friend: create(:user, first_name: 'Pending', last_name: 'Friend'))
-          @friendship2 = create(:accepted_user_friendship, user: users(:sarah), friend: create(:user, first_name: 'Active', last_name: 'Friend'))
-          @friendship3 = create(:requested_user_friendship, user: users(:sarah), friend: create(:user, first_name: 'Requested', last_name: 'Friend'))
-          @friendship4 = user_friendships(:blocked_by_sarah)
+          @pending_friendship = create(:pending_user_friendship, user: users(:sarah), friend: create(:user, first_name: 'Pending', last_name: 'Friend'))
+          @accepted_friendship = create(:accepted_user_friendship, user: users(:sarah), friend: create(:user, first_name: 'Active', last_name: 'Friend'))
+          @requested_friendship = create(:requested_user_friendship, user: users(:sarah), friend: create(:user, first_name: 'Requested', last_name: 'Friend'))
+          @blocked_friendship = user_friendships(:blocked_by_sarah)
           
           sign_in users(:sarah)
           get :index
@@ -29,19 +29,19 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         end
         
         should "display friend's names" do
-          assert_match /Pending/, response.body
-          assert_match /Active/, response.body
+          assert_match(/Pending/, response.body)
+          assert_match(/Active/, response.body)
         end
         
         should "display pending information on a pending friendship" do
-          assert_select "#user_friendship_#{@friendship1.id}" do
+          assert_select "#user_friendship_#{@pending_friendship.id}" do
             assert_select "em", "Friendship is pending."
           end
         end
 
         should "display date information on an accepted friendship" do
-          assert_select "#user_friendship_#{@friendship2.id}" do
-            assert_select "em", "Friendship started #{@friendship2.updated_at}."
+          assert_select "#user_friendship_#{@accepted_friendship.id}" do
+            assert_select "em", "Friendship is accepted."
           end
         end
         
@@ -55,12 +55,12 @@ class UserFriendshipsControllerTest < ActionController::TestCase
           end
           
           should "not display pending or active friend's names" do
-            assert_no_match /Pending\ Friend/, response.body
-            assert_no_match /Active\ Friend/, response.body
+            assert_no_match(/Pending\ Friends/, response.body)
+            assert_no_match(/Active\ Friends/, response.body)
           end
           
           should "display blocked friend names" do
-            assert_match /Blocked\ Friend/, response.body
+            assert_match(/Blocked\ Friend/, response.body)
           end
         end
         
@@ -74,12 +74,12 @@ class UserFriendshipsControllerTest < ActionController::TestCase
           end
           
           should "not display pending or active friend's names" do
-            assert_no_match /Blocked/, response.body
-            assert_no_match /Active/, response.body
+           assert_select "div#friend-list", {count: 1, html: /#{@pending_friendship.friend.full_name}/ }
+           assert_select "div#friend-list", {count: 0, html: /#{@blocked_friendship.friend.full_name}/ }
           end
           
           should "display blocked friends" do
-            assert_match /Pending/, response.body
+            assert_match(/Pending/, response.body)
           end
         end
         
@@ -93,12 +93,14 @@ class UserFriendshipsControllerTest < ActionController::TestCase
           end
           
           should "not display pending or active friend's names" do
-            assert_no_match /Blocked/, response.body
-            assert_no_match /Active/, response.body
+            assert_select "div#friend-list", {count: 1, html: /#{@requested_friendship.friend.full_name}/ }
+            assert_select "div#friend-list", {count: 0, html: /#{@blocked_friendship.friend.full_name}/ }
+            assert_select "div#friend-list", {count: 0, html: /#{@pending_friendship.friend.full_name}/ }
+            assert_select "div#friend-list", {count: 0, html: /#{@accepted_friendship.friend.full_name}/ }
           end
           
           should "display requested friends" do
-            assert_match /Requested/, response.body
+            assert_match(/Requested/, response.body)
           end
         end
         
@@ -112,12 +114,12 @@ class UserFriendshipsControllerTest < ActionController::TestCase
           end
           
           should "not display pending or active friend's names" do
-            assert_no_match /Blocked/, response.body
-            assert_no_match /Requested/, response.body
+            assert_select "div#friend-list", {count: 1, html: /#{@accepted_friendship.friend.full_name}/ }
+            assert_select "div#friend-list", {count: 0, html: /#{@blocked_friendship.friend.full_name}/ }
           end
           
           should "display requested friends" do
-            assert_match /Active/, response.body
+            assert_match(/Active/, response.body)
           end
         end
       end
@@ -148,7 +150,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
          
          should "display the friend's name" do
            get :new, friend_id: users(:ruby)
-           assert_match /#{users(:ruby).full_name}/, response.body
+           assert_match(/#{users(:ruby).full_name}/, response.body)
            end
            
            should "assign a new user friendship" do
@@ -173,7 +175,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
             
             should "ask if you really want to friend the user" do
               get :new, friend_id: users(:ruby)
-              assert_match /Do you really want to friend #{users(:ruby).full_name}?/, response.body
+              assert_match(/Do you really want to friend #{users(:ruby).full_name}?/, response.body)
             end
       end
     end
@@ -255,7 +257,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
           assert_response :redirect
           assert_redirected_to login_path
         end
-        end
+       end
         
         context "when logged in" do
           setup do
@@ -265,16 +267,17 @@ class UserFriendshipsControllerTest < ActionController::TestCase
             sign_in users(:sarah)
           end
           
-          def do_put
-            put :accept, id: @user_friendship
-            @user_friendship.reload
-          end
+         def do_put
+           put :accept, id: @user_friendship
+           @user_friendship.reload
+         end
           
-          should "assign a user_friendship" do
-            do_put
-            assert assigns(:user_friendship)
-            assert_equal @user_friendship, assigns(:user_friendship)
-          end
+          
+        should "assign a user_friendship" do
+         do_put
+         assert assigns(:user_friendship)
+         assert_equal @user_friendship, assigns(:user_friendship)
+       end
           
           should "update tha state to accepted" do
             do_put
@@ -320,25 +323,24 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         should "assign a friend" do
           assert assigns(:friend)
         end
-       
-        end
-      end
+     end
+   end
     
-    
-     context "#destroy" do
+    context "#destroy" do
       context "when not logged in" do
         should "redirect to the login page" do
          delete :destroy, id: 1
           assert_response :redirect
           assert_redirected_to login_path
         end
-        end
+      end
         
         context "when logged in" do
           setup do
             @friend = create(:user)
             @user_friendship = create(:accepted_user_friendship, friend: @friend, user: users(:sarah))
             create(:accepted_user_friendship, friend: users(:sarah), user: @friend)
+            
             sign_in users(:sarah)
          end
          

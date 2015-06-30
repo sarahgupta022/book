@@ -3,6 +3,7 @@ require 'test_helper'
 class PicturesControllerTest < ActionController::TestCase
   setup do
     @picture = pictures(:one)
+    @asset = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/rails.png'), 'image/png')
     @album = albums(:vacation)
     @user = users(:sarah)
     @default_params = { profile_name: @user.profile_name, album_id: @album.id }
@@ -23,7 +24,7 @@ class PicturesControllerTest < ActionController::TestCase
   test "should create picture" do
     sign_in users(:sarah)
     assert_difference('Picture.count') do
-      post :create, @default_params.merge(picture: { caption: @picture.caption, description: @picture.description })
+      post :create, @default_params.merge(picture: { caption: @picture.caption, description: @picture.description, asset: @asset })
     end
 
     assert_redirected_to album_pictures_path(@user.profile_name, @album.id)
@@ -31,8 +32,8 @@ class PicturesControllerTest < ActionController::TestCase
   
   test "should create activity on create" do
     sign_in users(:sarah)
-    assert_difference('Activity.count') do
-      post :create, @default_params.merge(picture: { caption: @picture.caption, description: @picture.description })
+    assert_difference 'Activity.count', 1 do
+      post :create, @default_params.merge(picture: { caption: @picture.caption, description: @picture.description, asset: @asset })
     end
   end
 
@@ -49,14 +50,14 @@ class PicturesControllerTest < ActionController::TestCase
 
   test "should update picture" do
     sign_in users(:sarah)
-    patch :update, @default_params.merge(id: @picture, picture: { caption: @picture.caption, description: @picture.description })
+    patch :update, @default_params.merge(id: @picture, picture: { caption: @picture.caption, description: @picture.description, asset: @asset })
     assert_redirected_to album_pictures_path(@user.profile_name, @album.id)
   end
   
   test "should create activity on update" do
     sign_in users(:sarah)
-    assert_difference 'Activity.count' do
-     patch :update, @default_params.merge(id: @picture, picture: { caption: @picture.caption, description: @picture.description })
+    assert_difference 'Activity.count', 1 do
+     patch :update, @default_params.merge(id: @picture, picture: { caption: @picture.caption, description: @picture.description, asset: @asset })
     end
   end
 
@@ -71,7 +72,7 @@ class PicturesControllerTest < ActionController::TestCase
   
    test "should create activity on destroy" do
     sign_in users(:sarah)
-    assert_difference('Activity.count') do
+    assert_difference('Activity.count', 1) do
       delete :destroy, @default_params.merge(id: @picture)
     end
   end

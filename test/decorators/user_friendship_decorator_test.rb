@@ -16,7 +16,7 @@ class UserFriendshipDecoratorTest < Draper::TestCase
       end
     end
     
-     context "with a accepted user friendship" do
+     context "with an accepted user friendship" do
        setup do
         @user_friendship = create(:accepted_user_friendship, friend: @friend)
         @decorator = UserFriendshipDecorator.decorate(@user_friendship)
@@ -51,7 +51,7 @@ class UserFriendshipDecoratorTest < Draper::TestCase
       end
     end
     
-     context "with a requested user friendship" do
+     context "with an requested user friendship" do
        setup do
         @user_friendship = create(:requested_user_friendship)
         @decorator = UserFriendshipDecorator.decorate(@user_friendship)

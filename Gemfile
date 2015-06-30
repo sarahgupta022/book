@@ -13,7 +13,7 @@ gem 'simple_form'
 gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 gem 'draper', '~> 2.1'
 gem 'js-routes'
-gem 'paperclip'
+gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'twitter-bootstrap-rails'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'

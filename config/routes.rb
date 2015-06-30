@@ -33,7 +33,9 @@ Rails.application.routes.draw do
        end 
      end
      
+     
   get '/:id', to: 'profiles#show', as: 'profile'
+ 
   
  
 end

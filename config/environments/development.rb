@@ -28,16 +28,16 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  config.assets.debug = false
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+  config.assets.digest = false
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
-  config.assets.raise_runtime_errors = true
+  config.assets.raise_runtime_errors = false
   
    # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -47,8 +47,9 @@ Rails.application.configure do
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
+   config.serve_static_assets = true
   
-  
+  Paperclip.options[:content_type_mappings] = { php: 'text/x-php' }
   Paperclip.options[:command_path] = 'C:\Program Files (x86)\GnuWin32\bin'
 
   # Raises error for missing translations

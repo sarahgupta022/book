@@ -2,9 +2,8 @@
 <%= page_header do %>
 <h1>Viewing Picture</h1>
 <% end %>
-<%= image_tag(@picture.asset.url(:medium), alt: @picture.caption, class: 'img-polaroid') %>
+<%= image_tag(@picture.asset.url(:large), alt: @picture.caption, class: 'img-polaroid') %>
 
-<br />
 
 <h3><%= @picture.caption %></h3>
 

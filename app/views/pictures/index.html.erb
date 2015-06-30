@@ -4,15 +4,16 @@
 <%= link_to 'Add Picture', new_album_picture_path(current_user, @album), class: 'btn pull-right' %>
 <% end %>
 <h1><%= @album.title %></h1>
+<%= image_tag("http://cartoonsimages.com/sites/default/files/field/image/tinker_bell_wallpaper_f5388.jpg", size: "200x200",  class: "responsive") %>
 <% end %>
 
 <ul class="thumbnails">
     <% @pictures.each do |picture| %>
      <li>
      	<div class="thumbnail">
-     		<%= link_to image_tag(picture.asset.url(:small)), album_picture_path(@user, @album, picture) %><br />
+     		<%= link_to image_tag(picture.asset.url(:small)), album_picture_path(@user, @album, picture) %><br /><br />
      		<div class="caption">
-     			<% if picture.caption? %><%= picture.caption %><br /><% end %>
+     			<% if picture.caption? %><%= picture.caption %><br /><br /><% end %>
      			
      			<%= link_to 'View full size', album_picture_path(@user, @album, picture) %>
      			
@@ -25,4 +26,3 @@
      		</li>
     <% end %>
 </ul>
-

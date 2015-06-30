@@ -2,7 +2,6 @@
 	<h1>Viewing Friendship</h1>
 </div>
 
-<h3><%= @user_friendship.sub_message %></h3>
 
 <div class="row">
 	<div class="avatar span2">
@@ -16,6 +15,8 @@
 	</div>
 </div>
 <hr />
+
+<h3><%= @user_friendship.sub_message %></h3>
 
 <div class="form-actions">
 	<% if @user_friendship.requested? %>

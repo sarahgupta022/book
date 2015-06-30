@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   #attr_protected :username, :password_confirmation, :remember_me, 
-                            #:first_name, :last_name, :profile_name
+                            #:first_name, :last_name, :profile_name, :avatar
   attr_accessible  :email, :password, :password_confirmation, :remember_me,
                                 :first_name, :last_name, :profile_name, :full_name, :avatar                        
     
@@ -73,6 +73,7 @@ class User < ActiveRecord::Base
      has_attached_file :avatar, style: { 
                           large: "800x800>", medium: "300x200>", small: "260x180>", thumb: "80x80#"
                           } 
+                                              
                           
                          
                           
@@ -84,7 +85,9 @@ class User < ActiveRecord::Base
                  print "."
                end
              end
-           end                         
+           end  
+           
+                               
                  
                         
          def full_name
