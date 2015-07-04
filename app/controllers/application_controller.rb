@@ -13,6 +13,20 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << [:email, :password, :Password_confirmation, :remember_me, :user_id, :first_name, :last_name,  :profile_name] #add or remove parameters as needed
    
   end
+  def configure_permitted_parameters
+    registration_params = [:first_name, :last_name, :profile_name, :email, :password, :password_confirmation, :avatar]
+
+    if params[:action] == 'update'
+      devise_parameter_sanitizer.for(:account_update) {
+        |u| u.permit(registration_params << :current_password)
+      }
+    elsif params[:action] == 'create'
+      devise_parameter_sanitizer.for(:sign_up) {
+        |u| u.permit(registration_params)
+      }
+    end
+  end
+  
   
   private
   def render_permission_error

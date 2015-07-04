@@ -31,11 +31,11 @@ window.loadedActivities = [];
  	window.loadedActivities.sort(function(a, b) {
  		var returnValue;
  		if (a.created_at > b.created_at)
- 		returnValue = -1;
+ 		     returnValue = -1;
  		if (b.created_at > a.created_at )
- 		returnValue = 1;
+ 		    returnValue = 1;
  		if (a.created_at == b.created_at)
- 		returnValue = 0;
+ 		    returnValue = 0;
  		return returnValue;
  	});
  }	
@@ -51,7 +51,7 @@ window.loadedActivities = [];
  		activities: window.loadedActivities, 
  		count: window.loadedActivities.length
  		});
- 	var $activityFeedLink = $('liactivity-feed');
+ 	var $activityFeedLink = $('li#activity-feed');
  	
  	$activityFeedLink.addClass('dropdown');
  	$activityFeedLink.html(html);
@@ -63,7 +63,7 @@ window.loadedActivities = [];
 		url: Routes.activities_path({format: 'json', since: window.lastFetch}),
 		type: "GET",
 		dataType: "json",
-		success: function(data) {
+		 success: function(data) {
 			window.lastFetch = Math.floor((new Date).getTime() / 1000);
 			if (data.length > 0) {
 				for (var i = 0; i < data.length; i++) {
@@ -76,7 +76,7 @@ window.loadedActivities = [];
 	});
 };
 
-Handlebars.registerHelper('activityLink', function() {
+Handlebars.registerHelper('activityFeedLink', function() {
 	return new Handlebars.SafeString(Routes.activities_path());
 });
 
@@ -84,7 +84,7 @@ Handlebars.registerHelper('activityLink', function() {
 Handlebars.registerHelper('activityLink', function() {
 	var link, path, html;
 	var activity = this;
-	var linkTest = this.targetable_type.toLowerCase();
+	var linkTest = activity.targetable_type.toLowerCase();
 	
 	switch (linkTest) {
 		case "status":
@@ -102,16 +102,16 @@ Handlebars.registerHelper('activityLink', function() {
 		 break;
 	}
 	
-	if (activity.action == 'deleted') {
+	if (activity.action === 'deleted') {
 		path = '#';
 	}
 	
 	console.log(this);
-	html = "<li><a href='"+ path +"'> + this.user_name + " " + this.action +  "a" + linkTest + ".</a></li>";
-	return new Handlebars.safeString(html);
+	html = "<li><a href='"+ path +"'>" + this.user_name + " " + this.action +  "a" + linkTest + ".</a></li>"; 
+	return new Handlebars.SafeString(html);
 });
 
-window.pollInterval = window.setInterval( pollActivity, 500 );
-pollActivity();
+ window.pollInterval = window.setInterval( pollActivity, 500 );
+ pollActivity();
 
 

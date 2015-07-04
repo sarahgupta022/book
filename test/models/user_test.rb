@@ -91,13 +91,13 @@ class UserTest < ActiveSupport::TestCase
       
       should "increas the Activity count with an album" do
        assert_difference 'Activity.count' do
-         users(:sarah).create_activity(album(:vacation), 'created' )
+         users(:sarah).create_activity(albums(:vacation), 'created' )
         end
       end 
       
       should "set the targetable instance to the item passed in with an album" do
-        activity = users(:sarah).create_activity(album(:vacation), 'created' )
-        assert_equal album(:vacation), activity.targetable
+        activity = users(:sarah).create_activity(albums(:vacation), 'created' )
+        assert_equal albums(:vacation), activity.targetable
       end
    end
  end

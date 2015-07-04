@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          
   #attr_protected :username, :password_confirmation, :remember_me, 
                             #:first_name, :last_name, :profile_name, :avatar
+  
   attr_accessible  :email, :password, :password_confirmation, :remember_me,
                                 :first_name, :last_name, :profile_name, :full_name, :avatar                        
     
@@ -70,21 +71,36 @@ class User < ActiveRecord::Base
                  through: :accepted_user_friendships,
                  source: :friend   
                  
-     has_attached_file :avatar, style: { 
-                          large: "800x800>", medium: "300x200>", small: "260x180>", thumb: "80x80#"
-                          } 
-                                              
+     has_attached_file :avatar, :styles => {
+          :thumb    => ['100x100#',  :jpg, :quality => 70],
+          :preview  => ['480x480#',  :jpg, :quality => 70],
+          :large    => ['800>',      :jpg, :quality => 70],
+          :retina   => ['1200>',     :jpg, :quality => 30]
+       },
+    :convert_options => {
+         :thumb    => '-set colorspace sRGB -strip',
+         :preview  => '-set colorspace sRGB -strip',
+         :large    => '-set colorspace sRGB -strip',
+         :retina   => '-set colorspace sRGB -strip -sharpen 0x0.5'
+      } 
                           
+             validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/]
+             
+             
+                                              
+           #def default_avatar_feed
+                #"Avatar-default-thumb.jpg"
+           #end                
                          
                           
            def self.get_gravatars
-             all.each do |user|
-               if !user.avatar?
-                 user.avatar = URI.parse(user.gravatar_url)
-                 user.save
-                 print "."
-               end
-             end
+              all.each do |user|
+                if !user.avatar?
+                  user.avatar = URI.parse(user.gravatar_url)
+                  user.save
+                  print "."
+                end
+              end
            end  
            
                                

@@ -5,7 +5,7 @@ module ApplicationHelper
       content_tag(:div, class: 'control-group') do
         content_tag(:label, "Current #{paperclip_object.to_s.titleize}", class: 'control-label')
         content_tag(:div, class: 'controls') do
-          image_tag form.object.send(paperclip_object).send(:url, :small)
+          image_tag form.object.send(paperclip_object).send(:url, :thumb)
         end
       end
     end
@@ -25,8 +25,8 @@ module ApplicationHelper
   end
   
   def avatar_profile_link(user, image_options={}, html_options={})
-    avatar_url = user.avatar? ? user.avatar.url(:thumb) : nil
-    link_to(image_tag(avatar_url, image_options), profile_path(user.profile_name), html_options)
+     avatar_url = user.avatar? ? user.avatar.url(:thumb) : nil
+     link_to(image_tag(avatar_url, image_options), profile_path(user.profile_name), html_options)
   end
   
   def page_header(&block)

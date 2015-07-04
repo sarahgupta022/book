@@ -62,8 +62,8 @@ premlata  = User.find_by_email('premlatadevi.cwc@gmail.com')
 seed_user = sarah
 
 seed_user.statuses.create(context: "Hello, world!")
-ruby.statuses.create(context: "Hi, I'm Ruby")
-ruby.statuses.create(context: "Hello from the internet!")
+ruby.statuses.create(context: "Hi, I'm Rubs")
+ruby.statuses.create(context: "Hello from the internet!!")
 arvind.statuses.create(context: "I want to learn html javapress")
 premlata.statuses.create(context: "Friendsbook is awesome!")
 

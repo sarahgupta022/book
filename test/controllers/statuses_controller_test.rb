@@ -128,6 +128,7 @@ class StatusesControllerTest < ActionController::TestCase
   end
   
   test "should destroy status" do
+    sign_in users(:sarah)
     assert_difference('Status.count', -1) do
       delete :destroy, id: @status
     end

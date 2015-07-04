@@ -2,7 +2,7 @@ class StatusesController < ApplicationController
   before_action :set_status, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
   
-rescue_from ActiveModel::MassAssignmentSecurity::Error, with: :render_permission_error , formats: [:html]
+ rescue_from ActiveModel::MassAssignmentSecurity::Error, with: :render_permission_error
  
   
   # GET /statuses
@@ -106,6 +106,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:name, :context, :user_id, :attachment, :avatar, :asset) 
+      params.require(:status).permit(:name, :context, :user_id, :attachment, :avatar) 
     end
 end

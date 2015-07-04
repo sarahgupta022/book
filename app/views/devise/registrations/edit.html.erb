@@ -13,18 +13,10 @@
   </fieldset>
   
   <fieldset>
-  	<legend>Profile Picture</legend>
-  	<%= f.input :avatar, as: :file %>
-  	<%= bootstrap_paperclip_picture f, :avatar %>
-  	<% if f.object.avatar? %>
-  	<div class="control-grop">
-  		<lable class="control-lable">Current avatar</lable>
-  		<div class="controls">
-  			<%= image_tag f.object.avatar.url %>
-  		</div>
-  	</div>
-  	<% end %>
-  </fieldset>
+    <legend>Profile Picture</legend>
+    <%= f.input :avatar, as: :file %>
+    <%= bootstrap_paperclip_picture f, :avatar %>
+  </fieldset>>
 
   <fieldset>
     <legend>Update Password</legend>

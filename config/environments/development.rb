@@ -47,10 +47,14 @@ Rails.application.configure do
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
-   config.serve_static_assets = true
+   
+  config.serve_static_files = true
   
-  Paperclip.options[:content_type_mappings] = { php: 'text/x-php' }
-  Paperclip.options[:command_path] = 'C:\Program Files (x86)\GnuWin32\bin'
+  Paperclip.options[:content_type_mappings] = { :pem => "text/plain" }
+
+  Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.9.1-6-Q16-X64'
+  
+  
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
