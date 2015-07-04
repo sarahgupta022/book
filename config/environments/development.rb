@@ -55,6 +55,9 @@ Rails.application.configure do
   Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.9.1-6-Q16-X64'
   
   
+    config.action_mailer.perform_deliveries = true
+    
+    config.action_mailer.default_options = {from: 'no-reply@example.com'}
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
