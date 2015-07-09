@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
                                     message: 'Must be formatted correctly.' ,
                                     multiline: true
                                   } 
-                                  
+    has_many :conversations, :foreign_key => :sender_id   
+    after_create :create_default_conversation                           
     has_many :activities                                 
     has_many :albums
     has_many :pictures
@@ -124,7 +125,9 @@ class User < ActiveRecord::Base
                hash = Digest::MD5.hexdigest(downcased_email)
                
                "http://gravatar.com/avatar/#{hash}"
-             end   
+             end  
+             
+            
              
          def has_blocked?(other_user)
            blocked_friends.include?(other_user)
@@ -138,4 +141,8 @@ class User < ActiveRecord::Base
            activity
          end
     
+    private
+     def create_default_conversation
+           Conversation.create(sender_id: 1, recipient_id: self.id) unless self.id == 1
+         end 
 end

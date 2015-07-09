@@ -17,7 +17,8 @@ gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'twitter-bootstrap-rails'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-
+gem 'private_pub'
+gem 'foreman'
 group :development do
   gem 'thin'
 end
