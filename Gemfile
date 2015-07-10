@@ -19,6 +19,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'private_pub'
 gem 'foreman'
+gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
 group :development do
   gem 'thin'
 end

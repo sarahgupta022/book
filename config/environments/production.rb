@@ -86,7 +86,7 @@ Rails.application.configure do
   port:                 587,
   domain:               'friendsbook1.herokuapp.com',
   user_name:            'sarahgupta022@gmail.com',
-  password:             'arvind@22',
+  password:             'mypassword',
   authentication:       :plain,
   enable_starttls_auto: true  }
   

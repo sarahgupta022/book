@@ -12,13 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 //= require private_pub
 //= require chat
 //= require turbolinks
 //= require js-routes
 //= require_tree .
-
-  var reciever_id = $('meta[name=user-id]').attr("context");
 
 
 window.loadedActivities = [];
@@ -105,6 +104,7 @@ Handlebars.registerHelper('activityLink', function() {
 		  path = Routes.profile_path(activity.profile_name);
 		  linkTest = "friend";
 		 break;
+		}
 	
 	if (activity.action === 'deleted') {
 		path = '#';
