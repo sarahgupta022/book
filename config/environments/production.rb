@@ -34,7 +34,7 @@ Rails.application.configure do
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+  config.assets.digest = false
   
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -86,7 +86,7 @@ Rails.application.configure do
   port:                 587,
   domain:               'friendsbook1.herokuapp.com',
   user_name:            'sarahgupta022@gmail.com',
-  password:             'mypassword',
+  password:             'arvind@22',
   authentication:       :plain,
   enable_starttls_auto: true  }
   

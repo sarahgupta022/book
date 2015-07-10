@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :activities, only: [:index]
+  resources :users, only: [:index]
 
    as :user do
     get '/register', to: 'devise/registrations#new', as: :register
@@ -33,7 +34,6 @@ Rails.application.routes.draw do
        end 
      end  
  
-     
       resources :conversations do
          resources :messages
      end
