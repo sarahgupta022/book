@@ -3,7 +3,7 @@
 <head>
   <title>Friendsbook</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'http://localhost:9292/faye.js', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 
@@ -36,9 +36,7 @@
 			</div>
 			</div>
 			</div>
-	<div class="container">
-	 <%= render 'layouts/chat' %>
-</div>
+	
 		</div>
 		
 	

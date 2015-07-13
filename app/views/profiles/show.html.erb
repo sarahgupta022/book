@@ -32,6 +32,8 @@
 	<hr/>
 	<%= link_to time_ago_in_words(status.created_at), status_path(status) %> ago
 </div>
-
+<div class="container">
+	 <%= render 'layouts/chat' %>
+</div>
 <% end %>
 <% end %>

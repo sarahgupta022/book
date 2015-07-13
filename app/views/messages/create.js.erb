@@ -1,6 +1,7 @@
 <% publish_to @path do %>
+<% broadcast "mesaage" do %>
     var id = "<%= @conversation.id %>";
-    var chatbox = $("#chatbox_" + id + " .chatboxcontent");
+    var chatbox = $("#chatbox_" + id + " .chatboxcontext");
     var sender_id = "<%= @message.user.id %>";
     var reciever_id = $('meta[name=user-id]').attr("context");
 
@@ -13,4 +14,5 @@
         chatbox.scrollTop(chatbox[0].scrollHeight);
         chatBox.notify();
     }
+ <% end %>   
 <% end %>

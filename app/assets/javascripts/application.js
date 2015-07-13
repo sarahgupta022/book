@@ -18,6 +18,15 @@
 //= require js-routes
 //= require_tree .
 
+$(function() {
+	var faye = new Faye.Client('http://localhost:9292/faye');
+	faye.subscribe("/message", function(data) {
+		eval(data);
+	});
+	
+});
+
+
 
 window.loadedActivities = [];
 

@@ -14,17 +14,17 @@ gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 gem 'draper', '~> 2.1'
 gem 'js-routes'
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'private_pub'
 gem 'foreman'
 gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
+gem 'font-awesome-less'
+gem 'faye'
 group :development do
   gem 'thin'
 end
-
-
 group :test do
   gem 'shoulda'
   gem 'factory_girl_rails'

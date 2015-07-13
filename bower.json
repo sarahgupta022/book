@@ -1,0 +1,25 @@
+{
+  "name": "typicons.font",
+  "version": "2.0.7",
+  "homepage": "http://typicons.com/",
+  "authors": [
+    "Sarah Gupta (sarahgupta022@gmail.com)"
+  ],
+  "license": "CC BY-SA / SIL",
+  "description": "Typicons are free-to-use vector icons embedded in a webfont for easy use in your user interfaces, whether it be on the web or in a native application.",
+  "main": ["src/font/demo.html, src/font/typicons.eot, src/font/typicons.ttf, src/font/typicons.woff, src/font/typicons.svg, src/font/typicons.css, src/font/typicons.min.css, src/font/LICENCE.md"],
+  "keywords": [
+    "icon",
+    "fonts",
+    "icons",
+    "font-face",
+    "webfont"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
