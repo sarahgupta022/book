@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707125300) do
+ActiveRecord::Schema.define(version: 20150715055235) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20150707125300) do
 
   create_table "documents", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20150707125300) do
     t.text     "body"
     t.integer  "conversation_id"
     t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"

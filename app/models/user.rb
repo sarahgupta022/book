@@ -89,15 +89,15 @@ class User < ActiveRecord::Base
              
              
                                               
-           #def default_avatar_feed
-                #"Avatar-default-thumb.jpg"
+          # def default_avatar_feed
+              #  "Avatar-default-thumb.jpg"
            #end                
                          
                           
            def self.get_gravatars
-              all.each do |user|
+             all.each do |user|
                 if !user.avatar?
-                  user.avatar = URI.parse(user.gravatar_url)
+                 user.avatar = URI.parse(user.gravatar_url)
                   user.save
                   print "."
                 end

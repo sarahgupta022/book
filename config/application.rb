@@ -36,8 +36,6 @@ module Book
     #Configure sensitive parameters which will be filtered from the log file.
     config.active_support.escape_html_emtities_in_json = true
     
-    # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = false
     
     # Enable the asset pipeline
     config.assets.enabled = false
@@ -47,5 +45,9 @@ module Book
     # Version of your assets, change the if you want to expire all your assets
     config.assets.version = '1.0'
     config.assets.initialize_on_precompile = true
+    
+    # adds app/assets/fonts to the asset path
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.assets.paths << Rails.root.join("app", "assets", "audios")
   end
 end

@@ -4,7 +4,7 @@ class CreateStatuses < ActiveRecord::Migration
       t.string :name
       t.text :context
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

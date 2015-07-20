@@ -21,6 +21,8 @@ gem 'private_pub'
 gem 'foreman'
 gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
 gem 'font-awesome-less'
+gem 'font-awesome-sass'
+gem 'rails_12factor', group: :production
 gem 'faye'
 group :development do
   gem 'thin'
@@ -37,6 +39,11 @@ end
 
 group :production do
   gem 'pg'
+end
+
+group :production do
+ gem 'libv8', '~> 3.11.8.3'
+ gem 'therubyracer', :platform => :ruby
 end
 gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets
