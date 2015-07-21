@@ -3,8 +3,7 @@
  * CREDITS: http://css-tricks.com/replicating-google-hangouts-chat/
  *
  */
-  @import "font-awesome-sprockets";
-  @import "font-awesome";
+ 
   .chatbox {
     position: fixed;
     position: expression("absolute");
